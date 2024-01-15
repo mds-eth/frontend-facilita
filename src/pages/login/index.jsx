@@ -48,7 +48,7 @@ const Login = () => {
           <form onSubmit={handleSubmit(handleCreate)}>
             <TextField
               style={{ background: '#3B3B3B' }}
-              label="Senha"
+              label="Email"
               fullWidth
               margin="normal"
               {...register('email')}

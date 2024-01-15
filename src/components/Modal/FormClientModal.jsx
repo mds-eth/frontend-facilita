@@ -24,7 +24,7 @@ const FormClientModal = ({ onClose }) => {
     resolver: yupResolver(clientSchema),
   });
 
-  const { loading, handleCreateClient } = useClientContext();
+  const { loadingForm, handleCreateClient } = useClientContext();
 
   const handleCreate = async (data) => {
 
@@ -180,7 +180,7 @@ const FormClientModal = ({ onClose }) => {
 
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px' }}>
           <Button type="button" onClick={onClose} variant="outlined">Fechar</Button>
-          <Button disabled={loading} type="submit" variant="contained" color="success">{loading ? <CircularProgress /> : 'Cadastrar'}</Button>
+          <Button disabled={loadingForm} type="submit" variant="contained" color="success">{loadingForm ? <CircularProgress /> : 'Cadastrar'}</Button>
         </div>
       </form>
     </Box>

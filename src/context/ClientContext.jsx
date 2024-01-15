@@ -16,6 +16,7 @@ export const ClientProvider = ({ children }) => {
   const { isAuthenticated } = useSessionContext();
 
   const [loading, setLoading] = useState(true);
+  const [loadingForm, setLoadingForm] = useState(false);
   const [clients, setClients] = useState([]);
   const [originalClients, setOriginalClients] = useState([]);
 
@@ -59,7 +60,7 @@ export const ClientProvider = ({ children }) => {
 
     try {
 
-      setLoading(true);
+      setLoadingForm(true);
 
       const response = await ApiService.post('/clients', data);
 
@@ -70,13 +71,15 @@ export const ClientProvider = ({ children }) => {
 
         setClients([...clients, newClient]);
 
-        setLoading(false);
+        setLoadingForm(false);
 
         return true;
       }
       return false;
     } catch (error) {
-      toast.error('Ocorreu algum erro ao realizar cadastro, tente novamente.')
+      setLoadingForm(false);
+      toast.error(error?.response?.data?.message || 'Ocorreu algum erro ao realizar cadastro, tente novamente.')
+      return false;
     }
   };
   const handleDeleteClient = async (clientId) => {
@@ -99,12 +102,13 @@ export const ClientProvider = ({ children }) => {
       }
       return false;
     } catch (error) {
+      setLoading(false);
       toast.error('Ocorreu algum erro ao remover cliente. Tente novamente.');
     }
   }
 
   return (
-    <ClientContext.Provider value={{ clients, loading, handleCreateClient, handleDeleteClient, searchClients }}>
+    <ClientContext.Provider value={{ clients, loading, loadingForm, handleCreateClient, handleDeleteClient, searchClients }}>
       {children}
     </ClientContext.Provider>
   );

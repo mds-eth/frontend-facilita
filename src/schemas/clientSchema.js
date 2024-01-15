@@ -18,7 +18,7 @@ export const clientSchema = yup.object().shape({
   coordinate_y: yup.number().required('Coordenada Y é obrigatória'),
   coordinate_x: yup.number().required('Coordenada X é obrigatória'),
   location_name: yup.string().required('Nome localização é obrigatório'),
-  address: yup.string().required('Endereço é obrigatório'),
+  address: yup.string(),
   number: yup.number().required('Número é obrigatório'),
   cep: yup
     .string()
